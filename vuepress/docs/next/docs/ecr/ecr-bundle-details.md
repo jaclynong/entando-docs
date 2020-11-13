@@ -22,9 +22,7 @@ Here is a generic bundle structure
     install static resources, please follow the following convention.
 
 ## Descriptor File
-
-The descriptor file will aggregate all components inside and has the
-following structure.
+The descriptor file will aggregate all components inside (order will be reorganized internally) and has the following structure.
 
 > **Warning**
 >
@@ -55,6 +53,15 @@ following structure.
       pageModels:
         - pagemodels/my_page_model_descriptor.yaml
         - pagemodels/another_page_model_descriptor.yaml
+        
+      # To create Pages you will need to add references to the descriptor file's
+      pages:
+        - pages/my_page_descriptor.yaml
+        - pages/another_page_descriptor.yaml
+        
+      # To create Groups you will need to add references to the descriptor file's
+      groups:
+        - groups/groups-descriptor.yaml
 
       # To create Content Types you will need to add references to the descriptor file's
       contentTypes:
@@ -64,8 +71,26 @@ following structure.
       contentModels:
         - contentmodels/my_content_model_descriptor.yaml
         - contentmodels/another_content_model_descriptor.yaml
+    
+      # To create Contents you will need to add references to the descriptor file's
+      contents:
+        - contents/my_content_descriptor.yaml
+        - contents/another_content_descriptor.yaml
+    
+      # To create Assets you will need to add references to the descriptor file's
+      assets:
+        - assets/asset_descriptor.yaml
+        - assets/another_asset_descriptor.yaml
+        
+      # To create Categories you will need to add references to the descriptor file's
+      categories:
+        - categories/my_categories_descriptor.yaml
 
-      # Labels on the system
+      # To create Languages you will need to add references to the descriptor file's
+      languages:
+        - languages/languages-descriptor.yaml
+
+      # Labels on the system (you can also use a dedicated descriptor like showed in the dedicated examples below)
       labels:
         - key: HELLO # This is the label identifier
           titles: # The titles on the label
@@ -221,6 +246,52 @@ Here is an example of a widget descriptor
               </div>
           </body>
       </html>
+      
+      
+## Page Descriptor
+
+**Page descriptor.yaml.**
+
+    code: todo_mvc_page
+    parentCode: homepage
+    
+    # Page Template's Titles
+    titles:
+      en: My Page Title
+      it: Titolo della Mia Pagina
+    
+    # the page template to apply to the current page
+    pageModel: my_page_template
+    ownerGroup: free
+    joinGroups: []
+    displayedInMenu: true
+    seo: false
+    charset: utf-8
+    status: published
+    
+    # the widgets configuration inside the current page 
+    widgets:
+      - code: widget_1
+        config: null
+        pos: 0
+      - code: widget_2
+        config: null
+        pos: 2
+      - code: widget_7
+        config: null
+        pos: 4
+        
+        
+## Groups Descriptor
+
+**Groups descriptor.yaml.**
+
+    - code: administrators
+      name: Administrators
+    - code: my_group
+      name: My custom group
+    - code: free
+      name: Free Access
 
 ## Content Type Descriptor
 
@@ -298,6 +369,71 @@ documentation.
         $content.MainBody.text
         #end
       </article>
+
+## Content Descriptor
+
+**Content descriptor.yaml.**
+
+    id: DDR993
+    typeCode: DDR
+    description: A DDR content with 3 card title - 2nd banner
+    mainGroup: free
+    status: PUBLIC
+    attributes:
+      - code: title
+        value: null
+        values:
+          en: Manage your DDR accounts
+        elements: []
+        compositeelements: []
+        listelements: {}
+      - code: subtitle
+        value: null
+        values:
+          en: Manage your DDR accounts in a simple way
+        elements: []
+        compositeelements: []
+        listelements: {}
+
+## Categories Descriptor
+
+**Categories descriptor.yaml.**
+
+    # The list of categories to create
+    - code: sales
+      parentCode: home
+      titles:
+        en: Sales
+        it: Vendite
+    - code: discounts
+      parentCode: home
+      titles:
+        en: Discount service
+        it: Servizio sconti
+        
+## Languages Descriptor
+
+**Languages descriptor.yaml.**
+
+    # The list of languages to enable
+    - code: en
+      description: English
+    - code: it
+      description: Italian
+      
+## Labels Descriptor
+
+**Labels descriptor.yaml.**
+
+    - key: HELLO # This is the label identifier
+      titles: # The titles on the label
+        it: Mio Titolo # The title in Italian
+        en: My Title # The title in English
+    - key: DARLING # This is the label identifier
+          titles: # The titles on the label
+            it: Mia cara # The title in Italian
+            en: My darling # The title in English
+
 
 ## Static Files
 
